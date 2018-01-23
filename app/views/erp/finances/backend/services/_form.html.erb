@@ -1,0 +1,126 @@
+<%= form_for([erp_finances, :backend, service], html: {multipart: true}) do |f| %>
+    <div class="row">
+        <div class="col-md-2">
+            <%= erp_form_control('image', {
+                img_src: service.image_url,
+                name: 'service[image_url]',
+                label: t('.image_url'),
+                width: 130,
+                height: 130
+            }) %>
+            <%= erp_form_control('image', {
+                img_src: service.service_icon,
+                name: 'service[service_icon]',
+                label: t('.service_icon'),
+                width: 50,
+                height: 50
+            }) %>
+        </div>
+        <div class="col-md-10">
+            <div class="portlet light bordered">
+                <div class="row">
+                    <div class="col-md-4">
+                        <%= erp_form_control("text", {
+                            name: 'service[name]',
+                            value: service.name,
+                            label: t('.name'),
+                            placeholder: t('.enter_name'),
+                            required: true,
+                            errors: service.errors.full_messages_for(:name)
+                        }) %>
+                    </div>
+                    <div class="col-md-4">
+                        <%= erp_form_control('checkbox', {
+                            name: 'service[is_home]',
+                            id: 'service_is_home',
+                            value: service.is_home,
+                            not_selected_value: 'false',
+                            label: t('.service_is_home'),
+                            options: [{value: 'true', text: t('.is_home')}]
+                        }) %>
+                    </div>
+                    <div class="col-md-4">
+                        <%= erp_form_control('checkbox', {
+                            name: 'service[is_main]',
+                            id: 'service_is_main',
+                            value: service.is_main,
+                            not_selected_value: 'false',
+                            label: t('.service_is_main'),
+                            options: [{value: 'true', text: t('.is_main')}]
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <%= erp_form_control("textarea", {
+                            name: 'service[meta_keywords]',
+                            value: service.meta_keywords,
+                            placeholder: t('.enter_meta_keywords'),
+                            label: t('.meta_keywords')
+                        }) %>
+                    </div>
+                    <div class="col-md-6">
+                        <%= erp_form_control("textarea", {
+                            name: 'service[meta_description]',
+                            value: service.meta_description,
+                            placeholder: t('.enter_meta_description'),
+                            label: t('.meta_description')
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <%= erp_form_control("textarea", {
+                            name: 'service[description]',
+                            value: service.description,
+                            placeholder: t('.enter_short_description'),
+                            label: t('.short_description')
+                        }) %>
+                    </div>
+                    <div class="col-md-6">
+                        <%= erp_form_control("file", {
+                            name: 'service[brochures]',
+                            value: service.brochures,
+                            label: t('.brochures')
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <%= erp_form_control("text", {
+                            name: 'service[link_docs]',
+                            value: service.link_docs,
+                            label: t('.link_docs'),
+                            placeholder: t('.enter_link_docs')
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable-custom ">
+                <div class="tab-content order-details">
+                    <div class="tab-pane addableform-table active" id="tab_content">
+                        <%= erp_form_control("editor", {
+                            name: 'service[content]',
+                            value: service.content,
+                            label: t('.content'),
+                            required: true,
+                            errors: service.errors.full_messages_for(:content)
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                      
+    <%= erp_component('button/save', {
+        text: t('submit')
+    }) %>
+    <%= erp_component('button/cancel', {
+        text: t('cancel'),
+        href: erp_finances.backend_services_path
+    }) %>    
+<% end %>

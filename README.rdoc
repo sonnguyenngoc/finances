@@ -1,0 +1,3 @@
+= Erp::Finances
+
+This project rocks and uses MIT-LICENSE.

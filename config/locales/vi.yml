@@ -1,0 +1,39 @@
+vi:
+  erp:
+    finances:
+      backend:
+        services:
+          index:
+            services: "Danh sách dịch vụ"
+            create: "Thêm dịch vụ"
+            name: "Tên dịch vụ"
+            delete: "Xóa dịch vụ"            
+          list:
+            name: "Tên dịch vụ"
+            delete: "Xóa dịch vụ"
+            no_matching_records_found: "Danh sách dịch vụ hiện tại đang trống."
+          new:
+            services: "Danh sách dịch vụ"
+            create: "Thêm dịch vụ"
+          edit:
+            services: "Danh sách dịch vụ"
+            create: "Thêm dịch vụ"
+          form:
+            image_url: "Hình ảnh chính"
+            service_icon: "Icon dịch vụ"
+            name: "Tên dịch vụ"
+            enter_name: "Nhập tên dịch vụ"
+            service_is_home: "Dịch vụ nổi bật"
+            is_home: "Chọn dịch vụ"
+            service_is_main: "Dịch vụ hiển thị ngoài trang chủ"
+            is_main: "Chọn dịch vụ"
+            meta_keywords: "Từ khóa thẻ meta - SEO"
+            enter_meta_keywords: "Nhập từ khóa thẻ meta"
+            meta_description: "Mô tả thẻ meta - SEO"
+            enter_meta_description: "Nhập mô tả thẻ meta"
+            content: "Nội dung chi tiết dịch vụ"
+            short_description: "Mô tả ngắn"
+            enter_short_description: "Nhập mô tả ngắn"
+            brochures: "Tài liệu giới thiệu (PDF, DOC, DOCX)"
+            link_docs: "Đường dẫn tải file liên quan"
+            enter_link_docs: "Nhập đường dẫn tải file liên quan (nếu có)"
