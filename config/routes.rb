@@ -6,6 +6,8 @@ Erp::Finances::Engine.routes.draw do
           get 'dataselect'
           post 'list'
           delete 'delete_all'
+          put 'move_up'
+          put 'move_down'
         end
       end
     end

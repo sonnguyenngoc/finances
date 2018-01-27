@@ -8,13 +8,6 @@
                 width: 130,
                 height: 130
             }) %>
-            <%= erp_form_control('image', {
-                img_src: service.service_icon,
-                name: 'service[service_icon]',
-                label: t('.service_icon'),
-                width: 50,
-                height: 50
-            }) %>
         </div>
         <div class="col-md-10">
             <div class="portlet light bordered">
@@ -86,12 +79,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <%= erp_form_control("text", {
                             name: 'service[link_docs]',
                             value: service.link_docs,
                             label: t('.link_docs'),
                             placeholder: t('.enter_link_docs')
+                        }) %>
+                    </div>
+                    <div class="col-md-6">
+                        <%= erp_form_control("text", {
+                            name: 'service[icon]',
+                            value: service.icon,
+                            label: t('.icon'),
+                            placeholder: t('.enter_icon')
                         }) %>
                     </div>
                 </div>

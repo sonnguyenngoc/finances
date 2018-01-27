@@ -1,7 +1,16 @@
 module Erp::Finances
   class Service < ApplicationRecord
+    include Erp::CustomOrder
+    
+    mount_uploader :image_url, Erp::Finances::ServiceImageUploader
+    mount_uploader :brochures, Erp::Finances::ServiceBrochuresUploader
+    
     belongs_to :creator, class_name: "Erp::User"
     validates :name, :presence => true
+    
+    def self.get_services
+			self.order("custom_order ASC")
+		end
     
     # Filters
     def self.filter(query, params)

@@ -23,6 +23,9 @@
                     <%= t('created_at') %>
                 </th>
             <% end %>
+            <th width="7%" class="sortable text-nowrap" sort-by='erp_finances_services.custom_order'>
+                <%= t('.custom_order') %>                
+            </th>
             <th width="7%"><%= t('actions') %></th>
         </tr>
     </thead>
@@ -50,6 +53,29 @@
                 <% if get_columns(params).include?("created_at") %>
                     <td><%= service.created_at.strftime("%d/%m/%Y") %></td>
                 <% end %>
+                <td class="text-center text-semibold">
+                    <%= service.custom_order %>
+                    <% if params[:sort_by] == 'erp_finances_services.custom_order' %>
+                        <a data-method="PUT"
+                            href="<%=
+                                params[:sort_direction] == 'asc' ?
+                                erp_finances.move_up_backend_services_path(id: service) :
+                                erp_finances.move_down_backend_services_path(id: service)
+                            %>"
+                            class="ajax-link">
+                                <i class="fa fa-caret-square-o-up icon-big"></i>
+                        </a>
+                        <a data-method="PUT"
+                            href="<%=
+                                params[:sort_direction] == 'asc' ?
+                                erp_finances.move_down_backend_services_path(id: service) :
+                                erp_finances.move_up_backend_services_path(id: service)
+                            %>"
+                            class="ajax-link">
+                                <i class="fa fa-caret-square-o-down icon-big"></i>
+                        </a>
+                    <% end %>
+                </td>
                 <td class="text-right">
                     <%= erp_datalist_row_actions(
                         [

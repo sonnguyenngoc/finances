@@ -2,7 +2,7 @@ module Erp
   module Finances
     module Backend
       class ServicesController < Erp::Backend::BackendController
-        before_action :set_service, only: [:edit, :update, :destroy]
+        before_action :set_service, only: [:move_up, :move_down, :edit, :update, :destroy]
         before_action :set_services, only: [:delete_all]
 
         # GET /services
@@ -99,6 +99,30 @@ module Erp
             }
           end
         end
+        
+        # Move up /services/up?id=1
+        def move_up
+          @service.move_up
+
+          respond_to do |format|
+          format.json {
+            render json: {
+            }
+          }
+          end
+        end
+
+        # Move down /services/up?id=1
+        def move_down
+          @service.move_down
+
+          respond_to do |format|
+          format.json {
+            render json: {
+            }
+          }
+          end
+        end
 
         private
           # Use callbacks to share common setup or constraints between actions.
@@ -113,7 +137,7 @@ module Erp
           # Only allow a trusted parameter "white list" through.
           def service_params
             params.fetch(:service, {}).permit(:image_url, :name, :brochures, :link_docs, :description, :content,
-                                              :meta_keywords, :meta_description, :service_icon, :is_home, :is_main)
+                                              :meta_keywords, :meta_description, :icon, :is_home, :is_main)
           end
       end
     end
