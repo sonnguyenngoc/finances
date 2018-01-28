@@ -10,6 +10,13 @@ Erp::Finances::Engine.routes.draw do
           put 'move_down'
         end
       end
-    end
+      resources :service_registers do
+        collection do
+          get 'dataselect'
+          post 'list'
+          delete 'delete_all'
+        end
+      end
+    end    
   end
 end

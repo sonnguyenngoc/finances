@@ -1,0 +1,95 @@
+<%= form_for([erp_finances, :backend, service_register], html: {multipart: true}) do |f| %>
+    <div class="form-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="portlet light bordered">
+                    <div class="portlet-body form">
+                        <%= erp_form_control("text", {
+                            name: 'service_register[name]',
+                            value: service_register.name,
+                            label: t('.name'),
+                            placeholder: t('.enter_name'),
+                            required: true,
+                            errors: service_register.errors.full_messages_for(:name)
+                        }) %>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <%= erp_form_control("dataselect", {
+                                    name: 'service_register[user_id]',
+                                    value: @service_register.user_id,
+                                    text: @service_register.user_name,
+                                    placeholder: 'Chọn khách hàng đăng ký',
+                                    label: 'Khách hàng đăng ký',
+                                    url: erp.dataselect_backend_users_path(format: 'json'),
+                                    required: true,
+                                    errors: service_register.errors.full_messages_for(:user_id)
+                                }) %>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <%= erp_form_control("dataselect", {
+                                    name: 'service_register[service_id]',
+                                    value: @service_register.service_id,
+                                    text: @service_register.service_name,
+                                    placeholder: 'Chọn dịch vụ đăng ký',
+                                    label: 'Dịch vụ đăng ký',
+                                    url: erp_finances.dataselect_backend_services_path(format: 'json'),
+                                    required: true,
+                                    errors: service_register.errors.full_messages_for(:service_id)
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <%= erp_form_control("number", {
+                                    name: 'service_register[price]',
+                                    value: service_register.price,
+                                    label: t('.price'),
+                                    placeholder: t('.enter_price'),
+                                    required: true,
+                                    errors: service_register.errors.full_messages_for(:price)
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <%= erp_form_control("date", {
+                                    name: 'service_register[start_date]',
+                                    value: @service_register.start_date,
+                                    label: 'Ngày đăng ký',
+                                    placeholder: 'Chọn ngày đăng ký'
+                                }) %>
+                            </div>
+                            <div class="col-md-6">
+                                <%= erp_form_control("date", {
+                                    name: 'service_register[end_date]',
+                                    value: @service_register.end_date,
+                                    label: 'Ngày kết thúc',
+                                    placeholder: 'Chọn ngày kết thúc'
+                                }) %>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="portlet light bordered">
+                    <div class="portlet-body form">                        
+                        <%= erp_form_control("textarea", {
+                            name: 'service_register[note]',
+                            value: @service_register.note,
+                            label: 'Ghi chú',
+                            placeholder: 'Nhập nội dung cần ghi chú'
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= erp_component('button/save', {
+        text: t('submit')
+    }) %>
+    <%= erp_component('button/cancel', {
+        text: t('cancel'),
+        href: erp_finances.backend_service_registers_path
+    }) %>
+<% end %>

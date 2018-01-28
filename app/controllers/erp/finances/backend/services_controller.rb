@@ -95,7 +95,7 @@ module Erp
         def dataselect
           respond_to do |format|
             format.json {
-              render json: Service.dataselect(params[:keyword].split('/').last.strip)
+              render json: Service.dataselect(params[:keyword])
             }
           end
         end

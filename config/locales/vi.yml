@@ -47,3 +47,40 @@ vi:
             brochures: "Tài liệu giới thiệu (PDF, DOC, DOCX)"
             link_docs: "Đường dẫn tải file liên quan"
             enter_link_docs: "Nhập đường dẫn tải file liên quan (nếu có)"
+        service_registers:
+          create:
+            success: "Thêm thông tin đăng ký thành công."
+          update:
+            success: "Cập nhật thông tin đăng ký thành công."
+          destroy:
+            success: "Xóa thông tin đăng ký thành công."
+          delete_all:
+            success: "Xóa thông tin đăng ký được chọn thành công."
+          index:
+            service_registers: "Danh sách thông tin đăng ký"
+            create: "Thêm thông tin đăng ký"
+            name: "Tên thông tin đăng ký"
+            user_name: "Tên khách hàng"
+            service_name: "Tên dịch vụ"
+            price: "Giá dịch vụ"
+            time: "Thời hạn"
+            delete: "Xóa thông tin đăng ký"            
+          list:
+            name: "Tên thông tin đăng ký"
+            user_name: "Tên khách hàng"
+            service_name: "Tên dịch vụ"
+            price: "Giá dịch vụ"
+            time: "Thời hạn"
+            delete: "Xóa thông tin đăng ký"
+            no_matching_records_found: "Danh sách thông tin đăng ký hiện tại đang trống."
+          new:
+            service_registers: "Đăng ký dịch vụ"
+            create: "Thêm dịch vụ"
+          edit:
+            service_registers: "Đăng ký dịch vụ"
+            create: "Thêm dịch vụ"
+          form:
+            name: "Tiêu đề đăng ký dịch vụ"
+            enter_name: "Nhập tiêu đề đăng ký dịch vụ"
+            price: "Giá dịch vụ"
+            enter_price: "Nhập giá tiền đăng ký"

@@ -1,0 +1,29 @@
+<% content_for :title do %>
+    <%= @service_register.name %>
+<% end %>
+
+<% content_for :page_title do %>    
+    <a href="<%= erp_finances.backend_service_registers_path %>">
+    <i class="fa fa-balance-scale"></i> <%= t('.service_registers') %>
+    </a> / <%= @service_register.name %>
+<% end %>
+
+<% content_for :page_toolbar do %>
+    <%= erp_component('button/create', {
+        text: t('.create'),
+        href: erp_finances.new_backend_service_register_path,
+        class: 'btn-noborder'
+    }) %>
+<% end %>
+
+<div class="row">
+    <div class="col-md-12">
+        <% if @service_register.errors.any? %>
+            <%= erp_form_control("form_error_message") %>
+        <% end %>
+        
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <%= render 'form', service_register: @service_register %>
+        <!-- END SAMPLE FORM PORTLET-->
+    </div>
+</div>
