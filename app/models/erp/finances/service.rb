@@ -7,10 +7,28 @@ module Erp::Finances
     
     belongs_to :creator, class_name: "Erp::User"
     validates :name, :presence => true
+    after_create :create_alias
+    
+    def create_alias
+			name = self.get_name.present? ? self.get_name : self.name
+			self.update_column(:alias, name.to_ascii.downcase.to_s.gsub(/[^0-9a-z ]/i, '').gsub(/ +/i, '-').strip)
+		end
     
     def self.get_services
 			self.order("custom_order ASC")
 		end
+    
+    def self.get_service_is_home
+			self.where(is_home: true).get_services
+		end
+    
+    def self.get_service_is_main
+			self.where(is_main: true).get_services
+		end
+    
+    def get_name
+      self.name
+    end
     
     # Filters
     def self.filter(query, params)

@@ -41,7 +41,12 @@
                     </td>
                 <% end %>
                 <% if get_columns(params).include?("status") %>
-                    <td></td>
+                    <td><% if service.is_main == true %>
+                    <span class="label label-sm label-archived">Đang hiển thị</span><br>
+                    <% end %>
+                    <% if service.is_home == true %>
+                    <span class="label label-sm label-unarchived">Dịch vụ nổi bật</span>
+                    <% end %></td>
                 <% end %>
                 <% if get_columns(params).include?("creator") %>
                     <td>
