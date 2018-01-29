@@ -7,27 +7,33 @@ module Erp
 
         # GET /services
         def index
+          authorize! :view, Erp::Finances::Service
         end
 
         # POST /services/list
         def list
+          authorize! :view, Erp::Finances::Service
+          
           @services = Service.search(params).paginate(:page => params[:page], :per_page => 10)
-
           render layout: nil
         end
 
         # GET /services/new
         def new
           @service = Service.new
+          authorize! :create, @service
         end
 
         # GET /services/1/edit
         def edit
+          authorize! :edit, @service
         end
 
         # POST /services
         def create
           @service = Service.new(service_params)
+          authorize! :create, @service
+          
           @service.creator = current_user
           if @service.save
             if request.xhr?
@@ -46,6 +52,8 @@ module Erp
 
         # PATCH/PUT /services/1
         def update
+          authorize! :edit, @service
+          
           if @service.update(service_params)
             if request.xhr?
               render json: {
@@ -64,6 +72,8 @@ module Erp
 
         # DELETE /services/1
         def destroy
+          authorize! :delete, @service
+          
           @service.destroy
 
           respond_to do |format|
@@ -79,6 +89,7 @@ module Erp
 
         # DELETE ALL /services/delete_all?ids=1,2,3
         def delete_all
+          authorize! :delete, @service
           @services.destroy_all
 
           respond_to do |format|

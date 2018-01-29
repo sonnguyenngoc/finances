@@ -11,8 +11,11 @@ module Erp
 
         # POST /service_registers/list
         def list
-          @service_registers = ServiceRegister.search(params).paginate(:page => params[:page], :per_page => 10)          
-          #@service_registers.where(user_id: current_user)
+          @service_registers = ServiceRegister.search(params).paginate(:page => params[:page], :per_page => 10)
+          
+          if current_user.get_permission(:user_management, :service, :service_registers, :index) != "all"
+            @service_registers = @service_registers.where(user_id: current_user)
+          end
           
           render layout: nil
         end
@@ -20,15 +23,18 @@ module Erp
         # GET /service_registers/new
         def new
           @service_register = ServiceRegister.new
+          authorize! :create, @service_register
         end
 
         # GET /service_registers/1/edit
         def edit
+          authorize! :edit, @service_register
         end
 
         # POST /service_registers
         def create
           @service_register = ServiceRegister.new(service_register_params)
+          authorize! :create, @service_register
           
           if @service_register.save
             if request.xhr?
@@ -47,6 +53,8 @@ module Erp
 
         # PATCH/PUT /service_registers/1
         def update
+          authorize! :edit, @service_register
+          
           if @service_register.update(service_register_params)
             if request.xhr?
               render json: {
@@ -65,6 +73,8 @@ module Erp
 
         # DELETE /service_registers/1
         def destroy
+          authorize! :delete, @service_register
+          
           @service_register.destroy
 
           respond_to do |format|
@@ -80,6 +90,8 @@ module Erp
 
         # DELETE ALL /service_registers/delete_all?ids=1,2,3
         def delete_all
+          authorize! :delete, @service_register
+          
           @service_registers.destroy_all
 
           respond_to do |format|

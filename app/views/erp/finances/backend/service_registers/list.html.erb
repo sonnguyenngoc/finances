@@ -40,23 +40,35 @@
                 </td>
                 <% if get_columns(params).include?("name") %>
                     <td>
-                        <%= link_to service_register.name, erp_finances.edit_backend_service_register_path(service_register), class: 'title' %>                        
+                        <% if can? :edit, service_register %>
+                            <%= link_to service_register.name, erp_finances.edit_backend_service_register_path(service_register), class: 'title' %>
+                        <% else %>
+                            <%= service_register.name %>
+                        <% end %>
                     </td>
                 <% end %>
                 <% if get_columns(params).include?("user_name") %>
-                    <td><%= link_to service_register.user_name, erp.edit_backend_user_path(service_register.user_id), target: "_blank" %></td>
+                    <% if can? :edit, service_register.user %>
+                        <td><%= link_to service_register.user_name, erp.edit_backend_user_path(service_register.user_id), target: "_blank" %></td>
+                    <% else %>
+                        <td><%= service_register.user_name %></td>
+                    <% end %>
                 <% end %>
                 <% if get_columns(params).include?("service_name") %>
-                    <td><%= link_to service_register.service_name, erp_finances.edit_backend_service_path(service_register.service_id), target: "_blank" %></td>
+                    <% if can? :edit, service_register.service %>
+                        <td><%= link_to service_register.service_name, erp_finances.edit_backend_service_path(service_register.service_id), target: "_blank" %></td>
+                    <% else %>
+                        <td><%= service_register.service_name %></td>
+                    <% end %>
                 <% end %>
                 <% if get_columns(params).include?("price") %>
                     <td><%= format_price(service_register.price) %></td>
                 <% end %>
                 <% if get_columns(params).include?("time") %>
-                    <td class="text-center"><%= service_register.start_date.strftime("%d/%m/%Y") %> ~ <%= service_register.end_date.strftime("%d/%m/%Y") %></td>
+                    <td class="text-center"><%= service_register.start_date.strftime("%d-%m-%Y") %> ~ <%= service_register.end_date.strftime("%d-%m-%Y") %></td>
                 <% end %>                
                 <% if get_columns(params).include?("status") %>
-                    <% if (service_register.end_date.strftime("%d/%m/%Y")) < Time.now.strftime("%d/%m/%Y") %>
+                    <% if (service_register.end_date.end_of_day) < (Time.now.end_of_day) %>
                         <td><span class="label label-sm label-danger">Đã hết hạng</span></td>
                     <% else %>
                         <td><span class="label label-sm label-success">Đang còn thời hạn</span></td>
@@ -66,24 +78,21 @@
                     <td><%= service_register.created_at.strftime("%d/%m/%Y") %></td>
                 <% end %>                
                 <td class="text-right">
-                    <%= erp_datalist_row_actions(
-                        [
-                            {
+                    <%
+                        actions = []
+                        actions << {
                                 text: '<i class="fa fa-edit"></i> '+t('edit'),
                                 href: erp_finances.edit_backend_service_register_path(service_register)
-                            },
-                            {
-                                divider: true
-                            },
-                            {
+                            } if can? :edit, service_register
+                        actions << {
                                 text: '<i class="fa fa-trash"></i> '+t('.delete'),
                                 url: erp_finances.backend_service_register_path(service_register),
                                 data_method: 'DELETE',
                                 class: 'ajax-link',
                                 data_confirm: t('delete_confirm')
-                            }
-                        ]
-                    ) %>
+                            } if can? :delete, service_register
+                     %>
+                    <%= erp_datalist_row_actions(actions) %>
                 </td>
             </tr>
         <% end %>

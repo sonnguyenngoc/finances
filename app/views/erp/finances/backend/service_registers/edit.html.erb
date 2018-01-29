@@ -8,12 +8,14 @@
     </a> / <%= @service_register.name %>
 <% end %>
 
-<% content_for :page_toolbar do %>
-    <%= erp_component('button/create', {
-        text: t('.create'),
-        href: erp_finances.new_backend_service_register_path,
-        class: 'btn-noborder'
-    }) %>
+<% if can? :create, Erp::Finances::ServiceRegister %>
+    <% content_for :page_toolbar do %>
+        <%= erp_component('button/create', {
+            text: t('.create'),
+            href: erp_finances.new_backend_service_register_path,
+            class: 'btn-noborder'
+        }) %>
+    <% end %>
 <% end %>
 
 <div class="row">

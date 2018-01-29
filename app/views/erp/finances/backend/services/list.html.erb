@@ -34,7 +34,11 @@
                 </td>
                 <% if get_columns(params).include?("name") %>
                     <td>
-                        <%= link_to service.name, erp_finances.edit_backend_service_path(service), class: 'title' %>                        
+                        <% if can? :edit, service %>
+                            <%= link_to service.get_name, erp_finances.edit_backend_service_path(service), class: 'title' %>
+                        <% else %>
+                            <%= service.get_name %>
+                        <% end %>
                     </td>
                 <% end %>
                 <% if get_columns(params).include?("status") %>
@@ -79,29 +83,27 @@
                     <% end %>
                 </td>
                 <td class="text-right">
-                    <%= erp_datalist_row_actions(
-                        [
-                            {
+                    <%
+                        actions = []
+                        actions << {
                                 text: '<i class="fa fa-edit"></i> '+t('edit'),
                                 href: erp_finances.edit_backend_service_path(service)
-                            },
-                            {
-                                divider: true
-                            },
-                            {
+                            } if can? :edit, service
+                        actions << {
                                 text: '<i class="fa fa-trash"></i> '+t('.delete'),
                                 url: erp_finances.backend_service_path(service),
                                 data_method: 'DELETE',
                                 class: 'ajax-link',
                                 data_confirm: t('delete_confirm')
-                            }
-                        ]
-                    ) %>
+                            } if can? :delete, service
+                    %>
+                    <%= erp_datalist_row_actions(actions) %>
                 </td>
             </tr>
         <% end %>
     </tbody>
 </table>
+
 <% if @services.empty? %>
     <div class="datalist-empty-line"><%= t('.no_matching_records_found') %></div>
 <% end %>
